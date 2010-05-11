@@ -1,0 +1,154 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" 
+                    "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+  <title>jquery-goodies</title>
+
+  <script src="../lib/jquery/jquery.js"></script>
+  <link rel="stylesheet" href="../lib/qunit/qunit.css" type="text/css" media="screen" />
+  <script type="text/javascript" src="../lib/qunit/qunit.js"></script>
+  <script type="text/javascript" src="../lib/jquery-simulate/jquery-simulate.js"></script>
+  
+  <script type="text/javascript" src="../src/jquery-clear-on-click/javascripts/jquery-clear-on-click.js"></script>
+  <script type="text/javascript" src="../src/jquery-autoresize/javascripts/jquery-autoresize.js"></script>
+  <script type="text/javascript" src="../src/jquery-exclusive-checkboxes/javascripts/jquery-exclusive-checkboxes.js"></script>
+
+  <script src="../lib/jquery-ui/jquery-ui-1.8.1.custom.min.js"></script>
+  <script type="text/javascript" src="../src/jquery-drag-to-share/javascripts/jquery-drag-to-share.js"></script>
+  <link rel="stylesheet" href="../src/jquery-drag-to-share/stylesheets/drag-to-share.css" type="text/css" media="screen" />
+
+  <script type="text/javascript" src="../src/jquery-tipsy/javascripts/jquery-tipsy.js"></script>
+  <link rel="stylesheet" href="../src/jquery-tipsy/stylesheets/jquery-tipsy.css" type="text/css" media="screen" />
+
+  <script>
+    $(document).ready(function(){
+
+      module("jquery-tipsy.js");
+      
+      test("check tooltip", function() {
+        var element = $('*[data-tooltip]');
+
+        element.tipsy({trigger: 'focus', gravity: 'w'});
+        ok($('.tipsy').size() == 0, "No tooltip shown");
+
+        element.focus();
+        ok($('.tipsy').size() == 1, "Tooltip shown");
+        
+        element.blur();
+        ok($('.tipsy').size() == 0, "No tooltip shown");
+      });
+    
+
+      module("jquery-clear-on-click.js");
+      
+      test("focus in and out", function() {
+        var default_text = 'Click me to clear the message!...';
+        var element = $('.ClearOnClick');
+        
+        element.clearOnClick({text: default_text});
+        equals(element.val(), default_text, 'should have default value');
+        
+        element.focus();
+        equals(element.val(), '', 'should be cleared out on focus' );
+        
+        element.blur();
+        equals(element.val(), default_text, 'should have default value on blur');
+      });
+
+
+      module("jquery-autoresize.js");
+      
+      test("input text to resize", function() {
+        var element = $('.AutoResizable');
+        
+        var resized = false;
+
+        element.autoResize({
+          onResize : function() {         
+            resized = true;
+          },
+        });
+        
+        var height_before = element.height();
+        element.val('first\nsecond\nthird\nforth\nfifth\nsixth');
+        element.change();
+        var height_after = element.height();
+        
+        ok(resized,  "onResize callback should be called");
+        ok(height_after > height_before, "Element should be resized");
+      });
+
+      module("jquery-drag-to-share.js");
+      
+      test("drag image to share", function() {
+        var element = $('.DragToShare');
+        
+        ok($('#targets:visible').size() == 0, "No share targets shown");
+
+        $('.DragToShare').simulate("drag");
+        
+        ok($('#targets:visible').size() == 1, "Share targets shown");
+      });
+
+      module("jquery-exclusive-checkboxes.js");
+      
+      test("check max one checkbox", function() {
+        $('.ExclusiveCheckboxes :checkbox').checkMaxOne();
+        var first  = $('#first-checkbox');
+        var second = $('#second-checkbox');
+        
+        ok(!first.attr('checked'),  "Element should not be checked");
+        ok(!second.attr('checked'), "Element should not be checked");
+        
+        first.click().change();
+        
+        ok(first.attr('checked'),   "Element should be checked");
+        ok(!second.attr('checked'), "Element should not be checked");
+
+        second.click().change();
+        
+        ok(!first.attr('checked'), "Element should not be checked");
+        ok(second.attr('checked'), "Element should be checked");
+      });
+
+    });
+  </script>
+  
+</head>
+<body>
+  <h1 id="qunit-header">jquery goodies</h1>
+  <h2 id="qunit-banner"></h2>
+  <h2 id="qunit-userAgent"></h2>
+  <ol id="qunit-tests"></ol>
+
+  <h3>DragToShare</h3>
+  <img class='DragToShare' src='images/banner.jpg'>
+  <ul id='targets'>
+    <li id='twitter'>
+      <a href='http://twitter.com'></a>
+    </li>
+    <li id='delicious'>
+      <a href='http://delicious.com'></a>
+    </li>
+    <li id='facebook'>
+      <a href='http://facebook.com'></a>
+    </li>
+  </ul>
+
+  <h3>Facebook-Style Tooltip</h3>
+  <input type="text" data-tooltip="input your email"/>
+
+  <h3>Clear on Click</h3>
+  <textarea class="ClearOnClick"></textarea>
+
+  <h3>Auto Resizable</h3>
+  <textarea class="AutoResizable"></textarea>
+
+  <h3>Exclusive Checkboxes</h3>
+  <div class="ExclusiveCheckboxes">
+    <input id="first-checkbox"  type="checkbox" />
+    <input id="second-checkbox" type="checkbox" />
+    <input id="third-checkbox"  type="checkbox" />
+  </div>
+</body>
+</html>

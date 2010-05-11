@@ -1,0 +1,104 @@
+h1. jquery-goodies
+
+jquery-goodies is a collection of useful jquery extensions that change the behavior of HTML elements simply by applying a CSS class.
+Go to the project's demo page to see an example of each goodie to play with.
+
+h2. DragToShare:
+
+<pre><code>
+<img class='DragToShare' src='images/banner.jpg'>
+</code></pre>
+
+Add a 'DragToShare' class to your image and then drag it to share the link to the current page to twitter, facebook or delicious. You'll need to include stylesheet, an image and the following HTML code:
+
+<pre><code>
+<ul id='targets'>
+  <li id='twitter'>
+    <a href='http://twitter.com'></a>
+  </li>
+  <li id='delicious'>
+    <a href='http://delicious.com'></a>
+  </li>
+  <li id='facebook'>
+    <a href='http://facebook.com'></a>
+  </li>
+</ul>
+</code></pre>
+
+h2. Facebook-style tooltip
+
+Add an attribute 'data-tooltip' to your input field to display a nice tooltip as you type. Stylesheet and an image are required as well. 
+
+<pre><code>
+<input type="text" data-tooltip="input your email"/>
+</code></pre>
+
+
+Example of the javascript call:
+
+<pre><code>
+$('*[data-tooltip]').tipsy({trigger: 'focus', gravity: 'w'});
+</code></pre>
+
+See different parameters of the tipsy plugin if you need to further customize the look-and-feel of your tooltip: "Tipsy homepage":http://onehackoranother.com/projects/jquery/tipsy/ 
+
+h2. ClearOnClick
+
+Adding a class 'ClearOnClick' lets you clear input or textarea elements from default text on focusing.
+
+<pre><code>
+<textarea class="ClearOnClick"></textarea>
+</code></pre>
+
+Example of the javascript call:
+
+<pre><code>
+$('.ClearOnClick').clearOnClick({text: 'Click me'});
+</code></pre>
+
+h2. AutoResizable
+
+Adding autoResize functionality to textareas with 'AutoResizable' class.
+
+Example of the javascript call:
+
+<pre><code>
+$('textarea.AutoResizable').autoResize({
+
+  onResize : function() {
+    $(this).css({opacity:0.8});
+  },
+
+  animateCallback : function() {
+    $(this).css({opacity:1});
+  },
+
+  animateDuration : 300,
+  extraSpace : 20
+});
+</code></pre>
+
+
+h2. Exclusive Checkboxes
+
+If you really don't want to use radio buttons - group the checkboxes together and from the group at most 1 of them will get checked.
+
+For the HTML below:
+
+<pre><code>
+<div class="ExclusiveCheckboxes">
+  <input id="first-checkbox"  type="checkbox" />
+  <input id="second-checkbox" type="checkbox" />
+  <input id="third-checkbox"  type="checkbox" />
+</div>
+</code></pre>
+
+example of the javascript call:
+<pre><code>
+$('.ExclusiveCheckboxes :checkbox').checkMaxOne();
+</code></pre>
+
+
+h2. Testing
+Go to the demo page to see the functionality tested using "QUnit":http://docs.jquery.com/QUnit and the "jquery-simulate plugin":http://github.com/eduardolundgren/jquery-simulate that lets you simulate drag-and-drop or sortable behavior.
+
