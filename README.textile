@@ -1,7 +1,7 @@
 h1. jquery-goodies
 
 jquery-goodies is a collection of useful jquery extensions that change the behavior of HTML elements simply by applying a CSS class.
-Go to the project's demo page to see an example of each goodie to play with.
+Go to the project's test page (test/jquery-goodies-test.html) to see an example of each goodie to play with.
 
 h2. DragToShare:
 
@@ -100,5 +100,5 @@ $('.ExclusiveCheckboxes :checkbox').checkMaxOne();
 
 
 h2. Testing
-Go to the demo page to see the functionality tested using "QUnit":http://docs.jquery.com/QUnit and the "jquery-simulate plugin":http://github.com/eduardolundgren/jquery-simulate that lets you simulate drag-and-drop or sortable behavior.
+Go to the project's test page (test/jquery-goodies-test.html) to see the functionality tested using "QUnit":http://docs.jquery.com/QUnit and the "jquery-simulate plugin":http://github.com/eduardolundgren/jquery-simulate that lets you simulate drag-and-drop or sortable behavior.
 
